@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export default function ProductDetails({ params }: { slug: string }) {
+export default function ProductDetails({ params }: { params: { slug: string } }) {
   const product = data.products.find((x) => x.slug === params.slug);
 
   if (!product) {
