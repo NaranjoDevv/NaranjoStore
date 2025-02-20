@@ -34,7 +34,7 @@ const data = {
       name: "Fit Shirt",
       slug: "fit-shirt",
       category: "Shirts",
-      image: "/images/shirt2.jpg",
+      image: "/images/model.png",
       price: 80000,
       brand: "Adidas",
       rating: 3.2,

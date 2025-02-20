@@ -1,13 +1,11 @@
 "use client";
-
 import useCartService from "@/lib/hooks/useCartStore";
 import { OrderItem } from "@/lib/models/OrderModel";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
 export default function AddToCart({ item }: { item: OrderItem }) {
   const router = useRouter();
-  const { items, increase } = useCartService();
+  const { items, increase , decrease } = useCartService();
   const [existItem, setExistItem] = useState<OrderItem | undefined>();
 
   useEffect(() => {
@@ -20,7 +18,7 @@ export default function AddToCart({ item }: { item: OrderItem }) {
 
   return existItem ? (
     <div>
-      <button className="btn" type="button">
+      <button className="btn" type="button" onClick={() => decrease(existItem)}>
         -
       </button>
       <span className="px-2">{existItem.qty}</span>
@@ -30,7 +28,7 @@ export default function AddToCart({ item }: { item: OrderItem }) {
     </div>
   ) : (
     <button
-      className="btn btn-primary w-full"
+      className="btn btn-black text-white w-full scale-100 text-base transition-all duration-300 hover:scale-105 hover:text-2xl"
       type="button"
       onClick={addToCartHandler}
     >

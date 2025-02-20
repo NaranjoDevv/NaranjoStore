@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { round2 } from "../utils";
 import { OrderItem } from "../models/OrderModel";
+import { persist } from "zustand/middleware";
+
 
 type Cart = {
   items: OrderItem[];
@@ -18,7 +20,11 @@ const initialState: Cart = {
   totalPrice: 0,
 };
 
-export const cartStore = create<Cart>(() => initialState);
+export const cartStore = create<Cart> ()(
+  persist(() =>initialState , {
+    name: "cart-storage",
+  })
+)
 
 export default function useCartService() {
   const { items, itemsPrice, shippingPrice, taxPrice, totalPrice } =
@@ -48,16 +54,50 @@ export default function useCartService() {
         totalPrice,
       });
     },
+    decrease: (item: OrderItem) => {
+      const exist = items.find((x) => x.slug === item.slug);
+     if(!exist) return
+
+     const updatedCartItems = exist.qty === 1
+       ? items.filter((x: OrderItem) => x.slug !== item.slug)
+      : items.map((x) =>
+          x.slug === item.slug ? {...exist, qty: exist.qty - 1 } : x
+        );
+
+      const { itemsPrice, shippingPrice, taxPrice, totalPrice } =
+        calcPrice(updatedCartItems);
+
+      cartStore.setState({
+        items: updatedCartItems,
+        itemsPrice,
+        shippingPrice,
+        taxPrice,
+        totalPrice,
+      });
+    },
+    remove: (item: OrderItem) => {
+      const updatedCartItems = items.filter((x: OrderItem) => x.slug !== item.slug);
+      const { itemsPrice, shippingPrice, taxPrice, totalPrice } =
+        calcPrice(updatedCartItems);
+
+      cartStore.setState({
+        items: updatedCartItems,
+        itemsPrice,
+        shippingPrice,
+        taxPrice,
+        totalPrice,
+      });
+    },
   };
 }
 
 const calcPrice = (items: OrderItem[]) => {
-  const itemsPrice = round2(
+  const itemsPrice = 
       items.reduce((acc, item) => acc + item.price * item.qty, 0)
-    ),
-    shippingPrice = round2(itemsPrice > 100 ? 0 : 100),
-    taxPrice = round2(Number(0.15 * itemsPrice)),
-    totalPrice = round2(itemsPrice + shippingPrice + taxPrice);
+    ,
+    shippingPrice = itemsPrice > 100 ? 0 : 100,
+    taxPrice = Number(0.15 * itemsPrice),
+    totalPrice = itemsPrice + shippingPrice + taxPrice;
 
   return { itemsPrice, shippingPrice, taxPrice, totalPrice };
 };

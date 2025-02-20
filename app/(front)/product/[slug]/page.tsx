@@ -17,48 +17,42 @@ export default function ProductDetails({ params }: { params: { slug: string } })
         <Link href="/">Back to products</Link>
       </div>
 
-      <div className="grid md:grid-cols-4 md:gap-3 ">
-        <div className="md:col-span-2 ">
+      <div className="grid md:grid-cols-2 md:gap-6 mb-12">
+        {/* Product Information on the Left */}
+        <div className="space-y-4 text-black  mt-32">
+          <h1 className="font-bold text-7xl">{product.name}</h1>
+          <p className="text-xl">${product.price}</p>
+          <p>{product.description}</p>
+          <p>Brand: {product.brand}</p>
+          <p>Rating: {product.rating} from {product.numReviews} reviews</p>
+          <div className="flex space-x-4">
+            <span>Size:</span>
+           <h3>Su puta madre en calzones
+            
+           </h3>
+          </div>
+          <div className="flex space-x-4">
+            <span>Color:</span>
+            <h2>Juanes Carechimba</h2>
+          </div>
+          <div className="mt-4">
+            {product.countInStock > 0 ? (
+              <AddToCart item={{ ...product, qty: 1, color: "", size: "" }} />
+            ) : (
+              <span className="text-red-500">SOLD OUT</span>
+            )}
+          </div>
+        </div>
+
+        {/* Product Image on the Right */}
+        <div className="flex justify-center">
           <Image
             src={product.image}
             alt={product.name}
-            width={420}
-            height={420}
-            sizes="80vw"
-            style={{
-              width: "80%",
-              height: "auto",
-            }}
-          ></Image>
-        </div>
-        <div>
-          <ul className="space-y-4 text-black">
-            <li className="text-xl">{product.name}</li>
-            <li>
-              {product.rating} De {product.numReviews} Comentarios
-            </li>
-            <li>{product.brand}</li>
-            <li className="divider"></li>
-            <li>Description:{product.description}</li>
-          </ul>
-        </div>
-        <div className="card bg-base-300 shadow-xl mt-3 md:mt-0 mb-3">
-          <div className="card-body">
-            <div className="mb-2 flex justify-between">
-              <div>Precio</div>
-              <div>${product.price}</div>
-            </div>
-            <div className="mb-2 flex justify-between">
-              <div>status</div>
-              <div>{product.countInStock > 0 ? "EN STOCK" : "SIN STOCK"}</div>
-            </div>
-
-            {product.countInStock !== 0 && (
-              <div className="card-actions justify-center">
-                <AddToCart item={{ ...product, qty: 0, color: "", size: "" }} />
-              </div>
-            )}
-          </div>
+            width={500}
+            height={500}
+            className="object-center"
+          />
         </div>
       </div>
     </>

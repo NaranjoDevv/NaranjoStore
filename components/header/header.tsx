@@ -1,25 +1,26 @@
 import Link from "next/link";
+import Image from "next/image"; // Importa el componente Image de next/image
 import React from "react";
+import Menu from "./Menu";
 
 const Header = () => {
   return (
-    <header >
-      <nav>
-        <div className="navbar justify-between bg-base-300">
+    <header>
+      <nav className="mt-12 px-12">
+        <div className="navbar justify-between text-black">
           <Link href="/" className="btn btn-ghost text-lg">
-            Ecommerce Naranjo
+            <Image
+              src="/images/logo.png" // Ruta al logo en la carpeta public/images
+              alt="NaranjoStore Logo"
+              width={250} // Ajusta el ancho según sea necesario
+              height={250} // Ajusta la altura según sea necesario
+              className="object-center justify-center"
+            />
           </Link>
 
-          <ul className="flex">
-            <li>
-              <Link className="btn btn-ghost rounded-btn" href="/cart">
-                Carrito
-              </Link>
-              <Link className="btn btn-ghost rounded-btn" href="/cart">
-                Identificate
-              </Link>
-            </li>
-          </ul>
+          <Menu/>
+
+         
         </div>
       </nav>
     </header>

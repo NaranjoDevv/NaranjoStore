@@ -19,11 +19,16 @@ const Menu = () => {
           <Link className="btn btn-ghost rounded-btn" href="/cart">
             Carrito
             {mounted && items.length != 0 && (
-              <div className="badge badge-secondary">
+              <div className="badge badge-accent">
                 {items.reduce((a, c) => a + c.qty, 0)}
               </div>
             )}
           </Link>
+        </li>
+        <li>
+          <button className="btn btn-ghost rounded-btn">
+            Iniciar Sesion
+          </button>
         </li>
       </ul>
     </div>
