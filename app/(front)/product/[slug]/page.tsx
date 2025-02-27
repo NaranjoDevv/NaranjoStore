@@ -17,7 +17,7 @@ export default function ProductDetails({ params }: { params: { slug: string } })
         <Link href="/">Back to products</Link>
       </div>
 
-      <div className="grid md:grid-cols-2 md:gap-6 mb-12">
+      <div className="grid md:grid-cols-2 md:gap-6">
         {/* Product Information on the Left */}
         <div className="space-y-4 text-black  mt-32">
           <h1 className="font-bold text-7xl">{product.name}</h1>

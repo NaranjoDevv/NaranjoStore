@@ -99,9 +99,12 @@ export default function CartDetails() {
 
                             </span>
                             <span><b className="text-2xl">
-                                ${itemsPrice}</b></span>
+                                ${itemsPrice}</b></span> 
                         </div>
-                        <button className="btn w-full bg-black text-white py-2 hover:bg-white hover:text-black">
+                        <button 
+                            className="btn w-full bg-black text-white py-2 hover:bg-white hover:text-black"
+                            onClick={() => router.push('/shipping')}
+                        >
                             CHECKOUT
                         </button>
                         <p className="text-center mt-2 text-sm">
