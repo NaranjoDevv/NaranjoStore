@@ -14,20 +14,20 @@ const Menu = () => {
 
   return (
     <div>
-      <ul className="flex items-stretch">
+      <ul className="flex items-stretch space-x-8">
         <li>
-          <Link className="btn btn-ghost rounded-btn" href="/cart">
-            Carrito
+          <Link className="text-xl font-bold tracking-widest uppercase hover:tracking-[0.2em] transition-all duration-300" href="/cart">
+            Cart
             {mounted && items.length != 0 && (
-              <div className="badge badge-accent">
+              <span className="ml-2 inline-flex items-center justify-center bg-black text-white text-sm font-bold w-6 h-6 rounded-full">
                 {items.reduce((a, c) => a + c.qty, 0)}
-              </div>
+              </span>
             )}
           </Link>
         </li>
         <li>
-          <button className="btn btn-ghost rounded-btn">
-            Iniciar Sesion
+          <button className="text-xl font-bold tracking-widest uppercase hover:tracking-[0.2em] transition-all duration-300">
+            Sign In
           </button>
         </li>
       </ul>

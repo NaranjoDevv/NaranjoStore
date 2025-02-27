@@ -3,6 +3,7 @@ import useCartService from "@/lib/hooks/useCartStore";
 import { OrderItem } from "@/lib/models/OrderModel";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+
 export default function AddToCart({ item }: { item: OrderItem }) {
   const router = useRouter();
   const { items, increase , decrease } = useCartService();
@@ -17,22 +18,32 @@ export default function AddToCart({ item }: { item: OrderItem }) {
   };
 
   return existItem ? (
-    <div>
-      <button className="btn" type="button" onClick={() => decrease(existItem)}>
-        -
+    <div className="inline-flex items-center border-2 border-black">
+      <button 
+        className="px-6 py-3 hover:bg-black hover:text-white transition-colors text-2xl font-bold" 
+        type="button" 
+        onClick={() => decrease(existItem)}
+      >
+        −
       </button>
-      <span className="px-2">{existItem.qty}</span>
-      <button className="btn" type="button" onClick={() => increase(existItem)}>
+      <span className="px-8 py-3 font-bold text-2xl border-l-2 border-r-2 border-black min-w-[4rem] text-center">
+        {existItem.qty}
+      </span>
+      <button 
+        className="px-6 py-3 hover:bg-black hover:text-white transition-colors text-2xl font-bold" 
+        type="button" 
+        onClick={() => increase(existItem)}
+      >
         +
       </button>
     </div>
   ) : (
     <button
-      className="btn btn-black text-white w-full scale-100 text-base transition-all duration-300 hover:scale-105 hover:text-2xl"
+      className="w-full bg-black text-white py-4 text-xl font-bold tracking-wider hover:bg-white hover:text-black border-2 border-black transition-all duration-300 uppercase"
       type="button"
       onClick={addToCartHandler}
     >
-      Añadir Al Carrito
+      Add to Cart
     </button>
   );
 }
